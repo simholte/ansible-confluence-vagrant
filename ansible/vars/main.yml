@@ -1,0 +1,28 @@
+---
+# defaults file for confluence
+
+confluence_version:   5.9.3
+
+confluence_proxy: false
+
+dbpass: confluence123
+confluence_dbuser: confluence
+dbhost: localhost
+confluence_dbname: confluence
+
+# List of users to be created (optional)
+postgresql_users:
+  - name: "{{confluence_dbuser}}"
+    pass: "{{dbpass}}"
+    encrypted: no       # denotes if the password is already encrypted.
+
+postgresql_databases:
+  - name: "{{confluence_dbname}}"
+    owner: "{{confluence_dbuser}}"   
+
+java_version: 8
+
+# which subversion?
+java_subversion: 60
+
+java_remove_download: false

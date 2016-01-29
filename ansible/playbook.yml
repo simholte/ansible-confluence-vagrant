@@ -1,0 +1,25 @@
+---
+- name: Provision the VM for Confluence
+  hosts: all
+  sudo: yes
+
+  vars_files:
+    - "vars/main.yml"
+
+  pre_tasks:
+    - name: Downloading and enable the EPEL repository definitions.
+      action: command rpm -Uvh --replacepkgs http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+    - name: install libselinux
+      yum: pkg=libselinux-python state=present
+
+    - name: Install Python pip
+      yum: pkg=python-pip state=present
+
+    - name: Create usr java directory so Java install will be linked
+      file: dest=/usr/lib/jvm/java state=directory mode=0755
+
+  roles:
+    - java
+    - postgresql
+    - confluence
